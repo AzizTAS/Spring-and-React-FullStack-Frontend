@@ -13,14 +13,10 @@ export function Activation() {
       setApiProgress(true);
       try {
         const response = await activateUser(token);
-        console.log("Axios response: ", response);
-        setSuccessMessage(response.data.message);
-        console.log("Success message updated: ", response.data.message);
+
+        setSuccessMessage(response.data.messageString);
       } catch (axiosError) {
-        console.log("Error response: ", axiosError.response);
-        setErrorMessage(
-          axiosError.response?.data?.message || "Unexpected error"
-        );
+        setErrorMessage(axiosError.response.data.message);
       } finally {
         setApiProgress(false);
       }
