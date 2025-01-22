@@ -2,13 +2,15 @@ import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { signUp } from "./api";
 import { Input } from "./components/Input";
+import { Spinner } from "@/shared/components/Spinner";
+import { Alert } from "@/shared/components/Alert";
 
 export function SignUp() {
   const [username, setUsername] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [passwordRepeat, setPasswordRepeat] = useState();
-  const [apiProgress, setApiProgress] = useState(false);
+  const [apiProgress, setApiProgress] = useState();
   const [successMessage, setSuccessMessage] = useState();
   const [errors, setErrors] = useState({});
   const [generalError, setGeneralError] = useState();
@@ -110,12 +112,8 @@ export function SignUp() {
               type="password"
             />
 
-            {successMessage && (
-              <div className="alert alert-success">{successMessage}</div>
-            )}
-            {generalError && (
-              <div className="alert alert-danger">{generalError}</div>
-            )}
+            {successMessage && <Alert>{successMessage}</Alert>}
+            {generalError && <Alert styleType="danger">{generalError}</Alert>}
 
             <div className="text-center">
               <button
@@ -124,18 +122,13 @@ export function SignUp() {
                   apiProgress || !password || password !== passwordRepeat
                 }
               >
-                {apiProgress && (
-                  <span
-                    className="spinner-border spinner-border-sm"
-                    aria-hidden="true"
-                  ></span>
-                )}
+                {apiProgress && 
+                <Spinner sm={true} />}
                 {t("signUp")}
               </button>
             </div>
           </div>
         </form>
-        
       </div>
     </div>
   );
