@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import logo from "../../assets/hoaxify.png";
+import logo from "@/assets/hoaxify.png";
 import { Link } from "react-router-dom";
 
 
