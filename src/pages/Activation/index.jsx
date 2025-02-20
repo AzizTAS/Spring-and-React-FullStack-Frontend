@@ -6,7 +6,7 @@ import { Spinner } from "@/shared/components/Spinner";
 
 export function Activation() {
   const { token } = useParams();
-  const [apiProgress, setApiProgress] = useState(true);
+  const [apiProgress, setApiProgress] = useState();
   const [successMessage, setSuccessMessage] = useState();
   const [errorMessage, setErrorMessage] = useState();
 
@@ -15,25 +15,27 @@ export function Activation() {
       setApiProgress(true);
       try {
         const response = await activateUser(token);
-
-        setSuccessMessage(response.data.messageString);
+        setSuccessMessage(response.data.message);
       } catch (axiosError) {
         setErrorMessage(axiosError.response.data.message);
       } finally {
         setApiProgress(false);
       }
     }
+
     activate();
-  }, []);
+  }, [token]);
 
   return (
     <>
       {apiProgress && (
         <Alert styleType="secondary" center>
-          <Spinner />
+            <Spinner />
         </Alert>
       )}
-      {successMessage && <Alert>{successMessage}</Alert>}
+      {successMessage && (
+        <Alert>{successMessage}</Alert>
+      )}
       {errorMessage && <Alert styleType="danger">{errorMessage}</Alert>}
     </>
   );
