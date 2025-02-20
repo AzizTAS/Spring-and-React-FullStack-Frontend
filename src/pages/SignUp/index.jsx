@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
-import { useTranslation } from "react-i18next";
 import { signUp } from "./api";
-import { Input } from "./components/Input";
-import { Spinner } from "@/shared/components/Spinner";
+import { Input } from "../../shared/components/Input";
+import { useTranslation } from "react-i18next";
 import { Alert } from "@/shared/components/Alert";
+
+import { Button } from "@/shared/components/Button";
 
 export function SignUp() {
   const [username, setUsername] = useState();
@@ -24,6 +25,7 @@ export function SignUp() {
       };
     });
   }, [username]);
+
   useEffect(() => {
     setErrors(function (lastErrors) {
       return {
@@ -32,6 +34,7 @@ export function SignUp() {
       };
     });
   }, [email]);
+
   useEffect(() => {
     setErrors(function (lastErrors) {
       return {
@@ -54,12 +57,13 @@ export function SignUp() {
         password,
       });
       setSuccessMessage(response.data.messageString);
+      console.log(response.data);
     } catch (axiosError) {
       if (axiosError.response?.data) {
         if (axiosError.response.data.status === 400) {
           setErrors(axiosError.response.data.validationErrors);
         } else {
-          setGeneralError(axiosError.response.data.message);
+          setGeneralError(axiosError.response.data.messageString);
         }
       } else {
         setGeneralError(t("genericError"));
@@ -71,7 +75,6 @@ export function SignUp() {
 
   const passwordRepeatError = useMemo(() => {
     if (password && password !== passwordRepeat) {
-      console.log("allsasd");
       return t("passwordMismatch");
     }
     return "";
@@ -111,21 +114,15 @@ export function SignUp() {
               onChange={(event) => setPasswordRepeat(event.target.value)}
               type="password"
             />
-
             {successMessage && <Alert>{successMessage}</Alert>}
             {generalError && <Alert styleType="danger">{generalError}</Alert>}
-
             <div className="text-center">
-              <button
-                className="btn btn-primary"
-                disabled={
-                  apiProgress || !password || password !== passwordRepeat
-                }
+              <Button
+                disabled={!password || password !== passwordRepeat}
+                apiProgress={apiProgress}
               >
-                {apiProgress && 
-                <Spinner sm={true} />}
                 {t("signUp")}
-              </button>
+              </Button>
             </div>
           </div>
         </form>
