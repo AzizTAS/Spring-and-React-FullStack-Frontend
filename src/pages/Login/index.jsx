@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Alert } from "@/shared/components/Alert";
-import { Spinner } from "@/shared/components/Spinner";
 import { Input } from "@/shared/components/Input";
 import { Button } from "@/shared/components/Button";
 import { login } from "./api";
+import { useAuthDispatch } from "@/shared/state/context";
+import { useNavigate } from "react-router-dom";
 
 export function Login() {
   const [email, setEmail] = useState();
@@ -13,6 +14,8 @@ export function Login() {
   const [errors, setErrors] = useState({});
   const [generalError, setGeneralError] = useState();
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const dispatch = useAuthDispatch();
 
   useEffect(() => {
     setErrors(function (lastErrors) {
@@ -38,13 +41,15 @@ export function Login() {
     setApiProgress(true);
 
     try {
-        await login({ email, password })
+        const response = await login({ email, password })
+        dispatch({type: 'login-success', data: response.data.user})
+        navigate("/")
     } catch (axiosError) {
         if (axiosError.response?.data) {
           if (axiosError.response.data.status === 400) {
             setErrors(axiosError.response.data.validationErrors);
           } else {
-            setGeneralError(axiosError.response.data.messageString);
+            setGeneralError(axiosError.response.data.message);
           }
         } else {
           setGeneralError(t("genericError"));
