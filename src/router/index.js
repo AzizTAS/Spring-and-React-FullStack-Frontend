@@ -6,6 +6,8 @@ import App from "@/App";
 import { Activation } from "@/pages/Activation";
 import { User } from "@/pages/User";
 import { Login } from "@/pages/Login";
+import { PasswordResetRequest } from "@/pages/PasswordReset/Request";
+import { SetPassword } from "@/pages/PasswordReset/SetPassword";
 
 export default createBrowserRouter([
     {
@@ -32,7 +34,15 @@ export default createBrowserRouter([
         {
           path: '/login',
           Component: Login
-        }
+        },
+        {
+          path: "/password-reset/request",
+          Component: PasswordResetRequest
+        },
+        {
+          path: "/password-reset/set",
+          Component: SetPassword
+        },
       ]
     }
   ])
