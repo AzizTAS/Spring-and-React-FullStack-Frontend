@@ -12,3 +12,23 @@ export function loadAuthState(){
         return defaultState;
     }
 }
+
+export function storeToken(token){
+    if(token) {
+        localStorage.setItem('token', JSON.stringify(token));
+    }
+}
+
+export function loadToken(){
+    const tokenInStorage = localStorage.getItem('token');
+    if(!tokenInStorage) return null;
+    try {
+        return JSON.parse(tokenInStorage);
+    } catch {
+        return null;
+    }
+}
+
+export function clearToken(){
+    localStorage.removeItem('token');
+}

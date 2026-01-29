@@ -5,6 +5,7 @@ import { Input } from "@/shared/components/Input";
 import { Button } from "@/shared/components/Button";
 import { login } from "./api";
 import { useAuthDispatch } from "@/shared/state/context";
+import { storeToken } from "@/shared/state/storage";
 import { Link, useNavigate } from "react-router-dom";
 
 export function Login() {
@@ -42,6 +43,7 @@ export function Login() {
 
     try {
         const response = await login({ email, password })
+        storeToken(response.data.token)
         dispatch({type: 'login-success', data: response.data})
         navigate("/")
     } catch (axiosError) {
