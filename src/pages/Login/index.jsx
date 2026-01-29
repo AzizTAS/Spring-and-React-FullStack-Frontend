@@ -88,7 +88,7 @@ export function Login() {
             </div>
           </div>
           <div className="card-footer text-center">
-            <Link to="/password-reset/request">Forget password?</Link>
+            <Link to="/password-reset/request">{t("forgetPassword")}</Link>
           </div>
         </form>
       </div>
