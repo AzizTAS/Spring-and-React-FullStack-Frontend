@@ -9,13 +9,13 @@ export function addToCart(productId, quantity = 1) {
 }
 
 export function updateCartItem(cartItemId, quantity) {
-  return http.put(`/api/v1/cart/items/${cartItemId}`, { quantity });
+  return http.put(`/api/v1/cart/item/${cartItemId}`, { quantity });
 }
 
 export function removeCartItem(cartItemId) {
-  return http.delete(`/api/v1/cart/items/${cartItemId}`);
+  return http.delete(`/api/v1/cart/item/${cartItemId}`);
 }
 
 export function clearCart() {
-  return http.delete("/api/v1/cart");
+  return http.delete("/api/v1/cart/clear");
 }
