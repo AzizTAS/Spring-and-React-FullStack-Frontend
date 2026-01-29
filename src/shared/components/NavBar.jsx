@@ -4,6 +4,7 @@ import logo from "@/assets/hoaxify.png";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useAuthDispatch, useAuthState } from "../state/context";
+import { clearToken } from "../state/storage";
 import { ProfileImage } from "./ProfileImage";
 import { LanguageSelector } from "./LanguageSelector";
 import { getCart } from "@/pages/Cart/components/api";
@@ -72,6 +73,7 @@ export function NavBar() {
   }, []);
 
   const onClickLogout = () => {
+    clearToken();
     dispatch({type: 'logout-success'});
     setCartCount(0);
     setMenuOpen(false);
