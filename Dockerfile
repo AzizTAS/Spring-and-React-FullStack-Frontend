@@ -6,11 +6,9 @@ RUN npm ci
 COPY . .
 RUN npm run build
 
-# Production stage
-FROM node:18-alpine
-WORKDIR /app
-RUN npm install -g serve
-COPY --from=build /app/dist ./dist
-ENV PORT=3000
-EXPOSE $PORT
-CMD serve -s dist -l tcp://0.0.0.0:$PORT
+# Production stage with nginx
+FROM nginx:alpine
+COPY --from=build /app/dist /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
