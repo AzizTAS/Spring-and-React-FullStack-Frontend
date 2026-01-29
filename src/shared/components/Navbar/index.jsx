@@ -26,6 +26,13 @@ export function NavBar() {
           <img src={logo} width={60} />
           Hoaxify
         </Link>
+        <ul className="navbar-nav me-auto">
+          <li className="nav-item">
+            <Link className="nav-link" to="/products">
+              Products
+            </Link>
+          </li>
+        </ul>
         <ul className="navbar-nav">
           {authState.id === 0 && (
             <>

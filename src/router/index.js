@@ -8,6 +8,13 @@ import { User } from "@/pages/User";
 import { Login } from "@/pages/Login";
 import { PasswordResetRequest } from "@/pages/PasswordReset/Request";
 import { SetPassword } from "@/pages/PasswordReset/SetPassword";
+import { Products } from "@/pages/Products";
+import { ProductDetail } from "@/pages/Products/ProductDetail";
+import { Cart } from "@/pages/Cart";
+import { Orders } from "@/pages/Orders";
+import { OrderDetail } from "@/pages/Orders/OrderDetail";
+import { Admin } from "@/pages/Admin";
+import { Payment } from "@/pages/Payment";
 
 export default createBrowserRouter([
     {
@@ -42,6 +49,34 @@ export default createBrowserRouter([
         {
           path: "/password-reset/set",
           Component: SetPassword
+        },
+        {
+          path: "/products",
+          Component: Products
+        },
+        {
+          path: "/products/:id",
+          Component: ProductDetail
+        },
+        {
+          path: "/cart",
+          Component: Cart
+        },
+        {
+          path: "/orders",
+          Component: Orders
+        },
+        {
+          path: "/orders/:id",
+          Component: OrderDetail
+        },
+        {
+          path: "/admin",
+          Component: Admin
+        },
+        {
+          path: "/payment/:orderId",
+          Component: Payment
         },
       ]
     }
