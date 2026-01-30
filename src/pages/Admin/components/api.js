@@ -70,5 +70,5 @@ export function updateUserRole(userId, role) {
 }
 
 export function deleteUser(userId) {
-  return http.delete(`/api/v1/users/${userId}`);
+  return http.delete(`/api/v1/admin/users/${userId}`);
 }
