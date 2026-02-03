@@ -3,8 +3,9 @@ import { initReactI18next } from "react-i18next";
 import en from "./translations/en.json";
 import tr from "./translations/tr.json";
 
-const initialLanguage =
-  localStorage.getItem("lang") || navigator.language || "en";
+const storedLang = localStorage.getItem("lang");
+const browserLang = navigator.language?.startsWith("tr") ? "tr" : "en";
+const initialLanguage = storedLang || browserLang;
 
 export const i18nInstance = i18n.use(initReactI18next);
 
@@ -18,7 +19,8 @@ i18nInstance.init({
     },
   },
 
-  fallbackLng: initialLanguage,
+  lng: initialLanguage,
+  fallbackLng: "en",
 
   interpolation: {
     escapeValue: false,
